@@ -32,8 +32,20 @@ public class Window extends JFrame implements Runnable{
 		
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-		if(keyListener.isKeyPressed(KeyEvent.VK_UP))
+		
+		int key = keyListener.getKey();
+		
+		switch(key) {
+		case KeyEvent.VK_UP:
 			System.out.println("Pressing: up arrow key");
+		break;
+		case KeyEvent.VK_DOWN:
+			System.out.println("Pressing: down arrow key");
+		break;
+		}
+		
+		//if(keyListener.isKeyPressed(KeyEvent.VK_UP))
+			//System.out.println("Pressing: up arrow key");
 	}
 	
 	
