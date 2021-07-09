@@ -1,5 +1,6 @@
 package window;
 
+import entities.Rectangle;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -13,6 +14,8 @@ public class Window extends JFrame implements Runnable{
 	
 	private Graphics2D g2;
 	private KeyIn keyListener = new KeyIn();
+	Rectangle player1, player2;
+	Rectangle ball;
 	
 	public Window() {
 		this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT); //800 pixels X 600 pixels
@@ -22,6 +25,10 @@ public class Window extends JFrame implements Runnable{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.addKeyListener(keyListener);
 		g2 = (Graphics2D) this.getGraphics();
+		
+		player1 = new Rectangle(Constants.HZ_SPACING, 40, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT, Constants.PLAYER_COLOR);
+		player2 = new Rectangle(Constants.SCREEN_WIDTH - 20 - Constants.HZ_SPACING, 40, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT, Constants.PLAYER_COLOR);
+		ball = new Rectangle(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, Constants.BALL_WIDTH, Constants.BALL_HEIGHT, Color.WHITE);
 		
 	}
 	
@@ -33,19 +40,14 @@ public class Window extends JFrame implements Runnable{
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 		
-		int key = keyListener.getKey();
-		
-		switch(key) {
-		case KeyEvent.VK_UP:
-			System.out.println("Pressing: up arrow key");
-		break;
-		case KeyEvent.VK_DOWN:
-			System.out.println("Pressing: down arrow key");
-		break;
-		}
-		
+		//int key = keyListener.getKey(); Salvando a tecla
 		//if(keyListener.isKeyPressed(KeyEvent.VK_UP))
 			//System.out.println("Pressing: up arrow key");
+		
+		player1.draw(g2);
+		player2.draw(g2);
+		ball.draw(g2);
+		
 	}
 	
 	
