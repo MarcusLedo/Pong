@@ -1,7 +1,7 @@
 package services;
 
 public class Time {
-	public static double timeStarted = System.nanoTime();
+	private static double timeStarted = System.nanoTime();
 	
 	
 	public static double getTime() { //Diferença entre o tempo inicial e final (do loop run) em segundos
