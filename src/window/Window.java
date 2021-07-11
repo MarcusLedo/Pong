@@ -1,6 +1,7 @@
 package window;
 
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -8,7 +9,7 @@ import java.awt.Image;
 import javax.swing.JFrame;
 
 import constants.Constants;
-import entities.Rectangle;
+import entities.*;
 import services.KeyIn;
 import services.PlayerController;
 import services.Time;
@@ -19,24 +20,25 @@ public class Window extends JFrame implements Runnable{
 	private Graphics2D g2;
 	private KeyIn keyListener = new KeyIn();
 	Rectangle player1, player2;
-	Rectangle ball;
+	Rectangle ballRect;
+	Ball ball;
 	private PlayerController playerController;
 	
 	public Window() {
-		this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT); //800 pixels X 600 pixels
-		this.setTitle(Constants.SCREEN_TITLE);
-		this.setResizable(false);//Usuário não pode modificar as dimensões da janela
-		this.setVisible(true);//Permitir o usuário ver janela
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.addKeyListener(keyListener);
+		setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT); //800 pixels X 600 pixels
+		setTitle(Constants.SCREEN_TITLE);
+		setResizable(false);//Usuário não pode modificar as dimensões da janela
+		setVisible(true);//Permitir o usuário ver janela
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addKeyListener(keyListener);
 		g2 = (Graphics2D) this.getGraphics();
 		
 		player1 = new Rectangle(Constants.HZ_SPACING, 40, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT, Constants.PLAYER_COLOR);
 		playerController = new PlayerController(player1, keyListener);
 		
 		player2 = new Rectangle(Constants.SCREEN_WIDTH - 20.0 - Constants.HZ_SPACING, 40.0, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT, Constants.PLAYER_COLOR);
-		ball = new Rectangle(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, Constants.BALL_WIDTH, Constants.BALL_HEIGHT, Color.WHITE);
-		
+		ballRect = new Rectangle(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, Constants.BALL_WIDTH, Constants.BALL_HEIGHT, Color.WHITE);
+		ball = new Ball(ballRect, player1, player2);
 		Constants.HEIGHT_LIMIT = this.getInsets().top;
 		
 	}
@@ -58,7 +60,7 @@ public class Window extends JFrame implements Runnable{
 			//System.out.println("Pressing: up arrow key");
 		
 		playerController.update(deltaTime);
-		
+		ball.update(deltaTime);
 		
 	}
 	
@@ -68,7 +70,7 @@ public class Window extends JFrame implements Runnable{
 		g2.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 		player1.draw(g2);
 		player2.draw(g2);
-		ball.draw(g2);
+		ballRect.draw(g2);
 	}
 	
 	public double getFPS(double deltaTime) {

@@ -5,8 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
 public class Rectangle {
-	private double x;
-	private double y;
+	public double x;
+	public double y;
 	private double width, height;
 	private Color color;
 	
@@ -21,6 +21,34 @@ public class Rectangle {
 	
 	
 	
+	public double getWidth() {
+		return width;
+	}
+
+
+
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+
+
+
+	public double getHeight() {
+		return height;
+	}
+
+
+
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+
+
+
 	public double getX() {
 		return x;
 	}
